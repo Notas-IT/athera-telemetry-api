@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Repository\TelemetryRecordRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -9,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Vienas įrenginio AVL įrašas. Žinomi parametrai laikomi stulpeliuose,
  * kad užklausos ir indeksai būtų pigūs, visas gautas io objektas - JSONB stulpelyje.
  */
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: TelemetryRecordRepository::class)]
 #[ORM\Table(name: 'telemetry_record')]
 #[ORM\Index(name: 'idx_telemetry_vehicle_time', columns: ['vehicle_id', 'recorded_at'])]
 class TelemetryRecord
