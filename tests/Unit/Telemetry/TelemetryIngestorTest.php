@@ -28,9 +28,9 @@ class TelemetryIngestorTest extends TestCase
     protected function setUp(): void
     {
         $this->persisted = [];
-        $this->repository = $this->createMock(EntityRepository::class);
+        $this->repository = $this->createStub(EntityRepository::class);
 
-        $this->em = $this->createMock(EntityManagerInterface::class);
+        $this->em = $this->createStub(EntityManagerInterface::class);
         $this->em->method('getRepository')->willReturn($this->repository);
         $this->em->method('persist')->willReturnCallback(function ($entity) {
             $this->persisted[] = $entity;
