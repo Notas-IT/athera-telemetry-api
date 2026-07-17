@@ -27,11 +27,12 @@ class TelemetryRecord
     #[ORM\Column(type: Types::DATETIMETZ_IMMUTABLE)]
     private \DateTimeImmutable $recordedAt;
 
-    #[ORM\Column(type: Types::FLOAT)]
-    private float $latitude;
+    // Signed, degrees WGS84. DECIMAL, kad koordinatė būtų saugoma tiksliai, be float paklaidų
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 7)]
+    private string $latitude;
 
-    #[ORM\Column(type: Types::FLOAT)]
-    private float $longitude;
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 7)]
+    private string $longitude;
 
     #[ORM\Column(type: Types::INTEGER, nullable: true)]
     private ?int $altitude = null;
@@ -59,7 +60,7 @@ class TelemetryRecord
     #[ORM\Column(type: Types::JSON, nullable: true, options: ['jsonb' => true])]
     private ?array $io = null;
 
-    public function __construct(Vehicle $vehicle, \DateTimeImmutable $recordedAt, float $latitude, float $longitude)
+    public function __construct(Vehicle $vehicle, \DateTimeImmutable $recordedAt, string $latitude, string $longitude)
     {
         $this->vehicle = $vehicle;
         $this->recordedAt = $recordedAt;
@@ -82,12 +83,12 @@ class TelemetryRecord
         return $this->recordedAt;
     }
 
-    public function getLatitude(): float
+    public function getLatitude(): string
     {
         return $this->latitude;
     }
 
-    public function getLongitude(): float
+    public function getLongitude(): string
     {
         return $this->longitude;
     }

@@ -80,8 +80,8 @@ class TelemetryIngestor
         $record = new TelemetryRecord(
             $vehicle,
             $this->toDateTime($dto->gnss->timestamp),
-            $dto->gnss->latitude,
-            $dto->gnss->longitude,
+            $this->toDegrees($dto->gnss->latitude),
+            $this->toDegrees($dto->gnss->longitude),
         );
 
         $record->setAltitude($dto->gnss->altitude);
@@ -96,6 +96,12 @@ class TelemetryIngestor
         }
 
         return $record;
+    }
+
+    // Signed, degrees WGS84 su 7 skaičių po kablelio tikslumu (~1 cm), kaip DECIMAL(10,7) stulpeliui
+    private function toDegrees(float $coordinate): string
+    {
+        return number_format($coordinate, 7, '.', '');
     }
 
     // Epoch sekundės su trupmenine dalim -> UTC laikas su mikrosekundėm

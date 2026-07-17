@@ -78,6 +78,55 @@ invalid records are rejected, valid ones are stored.
 231/232 registration number parts, 239 ignition, 240 movement, 21 gsm signal, 24 speed.
 Unknown parameters are stored as received.
 
+A later batch from the same device with two records, carrying the registration
+number (231+232) and all known parameters:
+
+```json
+{
+  "imei": "356307042441013",
+  "records": [
+    {
+      "gnss": {
+        "timestamp": 1781849920.000,
+        "latitude": 54.687601,
+        "longitude": 25.280114,
+        "altitude": 114,
+        "speed": 52
+      },
+      "io": {
+        "239": 1,
+        "240": 1,
+        "21": 5,
+        "24": 52,
+        "216": 123457921,
+        "86": 4568120,
+        "231": "ABC",
+        "232": "123"
+      }
+    },
+    {
+      "gnss": {
+        "timestamp": 1781849980.000,
+        "latitude": 54.688204,
+        "longitude": 25.280893,
+        "altitude": 117,
+        "speed": 64
+      },
+      "io": {
+        "239": 1,
+        "240": 1,
+        "21": 5,
+        "24": 64,
+        "216": 123459004,
+        "86": 4568390,
+        "231": "ABC",
+        "232": "123"
+      }
+    }
+  ]
+}
+```
+
 Response `200`:
 
 ```json

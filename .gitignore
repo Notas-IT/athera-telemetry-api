@@ -1,0 +1,5 @@
+/vendor
+/var/cache
+/.phpunit.cache
+/public/bundles/
+/public/bundles
